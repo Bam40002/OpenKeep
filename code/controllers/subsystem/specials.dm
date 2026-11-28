@@ -12,9 +12,11 @@ PROCESSING_SUBSYSTEM_DEF(specials)
 /datum/controller/subsystem/processing/specials/Initialize(start_timeofday)
 	. = ..()
 
+	var/datum/special/S // something something put it infront of the loop
 	for(var/special as anything in subtypesof(/datum/special))
-		special_primordials[special] = new special()
-		specials_weighted[special] = special_primordials[special].weight
+		S = new special()
+		special_primordials[special] = S
+		specials_weighted[special] = S.weight
 
 /// Returns a random WEIGHTED special pick
 /datum/controller/subsystem/processing/specials/proc/pick_special()

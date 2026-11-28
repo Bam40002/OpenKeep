@@ -2297,7 +2297,8 @@ Slots: [job.spawn_positions]</span>
 				if("pickspecial")
 					if(!picked_special)
 						picked_special = SSspecials.pick_special()
-						to_chat(user, "<span><b>Your character is now special!</b><br>[SSspecials[picked_special].description]</span>")
+						var/datum/special/S = SSspecials[picked_special] // need to do this for spacemandmm to shut up
+						to_chat(user, "<span><b>Your character is now special!</b><br>[S.get_description()]</span>")
 
 	ShowChoices(user)
 	return 1
@@ -2413,6 +2414,8 @@ Slots: [job.spawn_positions]</span>
 	character.familytree_pref = family
 	character.setspouse = setspouse
 
+	// !!!!! ATTENTION !!!!!
+	// ALWAYS APPLY THE SPECIAL LAST (DUH)
 	if(picked_special)
 		SSspecials.try_apply_special(character, picked_special)
 

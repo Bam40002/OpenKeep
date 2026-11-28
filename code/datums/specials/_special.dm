@@ -3,6 +3,8 @@
 	var/name = "/datum/special"
 	/// What our player will know about this special
 	var/description = "If you see this you are indeed very special."
+	/// Requirement string
+	var/reguirement = ""
 	/// The weight of this special
 	var/weight = 1
 	/// The mob this special belongs to
@@ -25,4 +27,13 @@
 	if(!owner || !ishuman(owner))
 		return PROCESS_KILL
 
-	process_special(owner)
+	return process_special(owner)
+
+/datum/special/proc/get_description()
+	return description
+
+// debug verb TODO: REMOVE THIS
+/mob/new_player/verb/pick_special()
+	client.pref.picked_special = SSspecials.pick_special()
+	var/datum/special/S = SSspecials[client.pref.picked_special] // need to do this for spacemandmm to shut up
+	to_chat(user, "<span><b>Your character is now special!</b><br>[S.get_description()]</span>")
